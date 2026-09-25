@@ -1,0 +1,1037 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rainbow Hero Quest — Fluffynho Guide</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #0b0c10;
+      --bg-card: #14161f;
+      --bg-hover: #1c1f2c;
+      --accent: #6366f1;
+      --accent-glow: rgba(99, 102, 241, 0.35);
+      --text-main: #f3f4f6;
+      --text-muted: #9ca3af;
+      --border: #252836;
+      --gold: #f59e0b;
+      --red: #ef4444;
+      --green: #10b981;
+      --cyan: #38bdf8;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: 'Inter', sans-serif;
+      line-height: 1.6;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 1050px;
+      margin: 0 auto;
+    }
+
+    .header-title {
+      text-align: center;
+      margin-bottom: 25px;
+      font-size: 2.2rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #a855f7, #6366f1, #38bdf8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .nav-tabs {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 25px;
+      border-bottom: 2px solid var(--border);
+      padding-bottom: 12px;
+      overflow-x: auto;
+      white-space: nowrap;
+      scrollbar-width: thin;
+      scrollbar-color: var(--accent) var(--bg-card);
+    }
+
+    .tab-btn {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      padding: 10px 16px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.88rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .tab-btn:hover {
+      border-color: var(--accent);
+      color: var(--text-main);
+      background: var(--bg-hover);
+    }
+
+    .tab-btn.active {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
+      box-shadow: 0 0 14px var(--accent-glow);
+    }
+
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 22px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+    }
+
+    h1, h2, h3, h4 { color: #fff; font-weight: 700; margin-bottom: 12px; }
+    h1 { font-size: 1.7rem; color: #fff; border-bottom: 2px solid var(--border); padding-bottom: 10px; margin-bottom: 18px; }
+    h2 { font-size: 1.3rem; color: var(--cyan); margin-top: 15px; border-bottom: 1px solid var(--border); padding-bottom: 6px; }
+    h3 { font-size: 1.1rem; color: var(--gold); margin-top: 12px; }
+
+    .alert {
+      padding: 14px 18px;
+      border-radius: 8px;
+      margin: 16px 0;
+      font-size: 0.95rem;
+    }
+    .alert-warning { background: rgba(245, 158, 11, 0.12); border-left: 4px solid var(--gold); color: #fcd34d; }
+    .alert-danger { background: rgba(239, 68, 68, 0.12); border-left: 4px solid var(--red); color: #fca5a5; }
+    .alert-info { background: rgba(56, 189, 248, 0.12); border-left: 4px solid var(--cyan); color: #7dd3fc; }
+
+    .coord-click {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #0f1118;
+      border: 1px solid #33374c;
+      color: var(--cyan);
+      font-family: 'JetBrains Mono', monospace;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      margin: 2px 0;
+      font-weight: 600;
+    }
+
+    .coord-click:hover {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
+    }
+
+    .npc-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+      gap: 12px;
+      margin-top: 15px;
+    }
+
+    .npc-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: #0f1118;
+      padding: 12px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+    }
+
+    .npc-item input[type="checkbox"] {
+      width: 20px; height: 20px; accent-color: var(--accent); cursor: pointer;
+    }
+
+    a { color: var(--cyan); text-decoration: none; font-weight: 600; }
+    a:hover { text-decoration: underline; }
+
+    ul, ol { padding-left: 22px; margin-bottom: 16px; }
+    li { margin-bottom: 8px; }
+
+    .toast {
+      position: fixed;
+      bottom: 25px;
+      right: 25px;
+      background: var(--green);
+      color: #fff;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-weight: 700;
+      display: none;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.5);
+      z-index: 1000;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1 class="header-title">🌈 Rainbow Hero Quest — Fluffynho Guide</h1>
+
+    <!-- Nav Tabs -->
+    <div class="nav-tabs">
+      <button class="tab-btn active" onclick="openTab('guias')">📌 [GUIA] Requisitos</button>
+      <button class="tab-btn" onclick="openTab('p1')">👁️ Parte 1</button>
+      <button class="tab-btn" onclick="openTab('p2')">👘 Parte 2</button>
+      <button class="tab-btn" onclick="openTab('p3')">📌 Parte 3</button>
+      <button class="tab-btn" onclick="openTab('p4')">⛩️ Parte 4</button>
+      <button class="tab-btn" onclick="openTab('p5')">📌 Parte 5</button>
+      <button class="tab-btn" onclick="openTab('p6')">📌 Parte 6</button>
+      <button class="tab-btn" onclick="openTab('p7')">🚓 Parte 7</button>
+      <button class="tab-btn" onclick="openTab('p8')">❄️ Parte 8</button>
+      <button class="tab-btn" onclick="openTab('p9')">🗿 Parte 9</button>
+      <button class="tab-btn" onclick="openTab('p10')">🌲 Parte 10</button>
+    </div>
+
+    <!-- REQUISITOS E PREPARAÇÃO -->
+    <div id="guias" class="tab-content active">
+      <div class="card">
+        <h1>📜 REQUISITOS + COLETA DE ORBS</h1>
+        
+        <div class="alert alert-warning">
+          <strong>⚠️ REQUISITOS OBRIGATÓRIOS</strong><br>
+          • <strong>Nível para introdução:</strong> 450+<br>
+          • <strong>Rainbow Orbs:</strong> 248/251
+        </div>
+
+        <h2>🔍 Quests Pré-requisito</h2>
+        <p><em>(Clique no nome da quest para acessar o spoiler correspondente)</em></p>
+        <ul>
+          <li>• <a href="https://wiki.pokexgames.com/index.php/Mysteries_from_the_Ruins_of_Alph" target="_blank">Mysteries from the Ruins of Alph</a></li>
+          <li>• <a href="https://wiki.pokexgames.com/index.php/The_Radio_Tower_Hijack_Quest" target="_blank">The Radio Tower Hijack Quest</a></li>
+          <li>• <a href="https://wiki.pokexgames.com/Echoes_of_MT_Silver_Quest" target="_blank">Echoes of MT Silver Quest</a></li>
+          <li>• <a href="https://wiki.pokexgames.com/index.php/Kimono_Girls_Quest" target="_blank">Kimono Girls</a></li>
+          <li>• <a href="https://wiki.pokexgames.com/index.php/Encontros_com_Eusine" target="_blank">Encontros com Eusine</a></li>
+          <li>• <a href="https://wiki.pokexgames.com/index.php/The_Exotic_Flower_Quest" target="_blank">The Exotic Flower Quest</a></li>
+          <li>• <a href="https://wiki.pokexgames.com/index.php/The_Slowpoke_Well_Quest" target="_blank">The Slowpoke Well</a></li>
+        </ul>
+
+        <h2>🛠️ Programa para Coletar Orbs</h2>
+        <p>• Baixe o <a href="https://drive.google.com/file/d/10hYjJ3vf5B-mvXL3j_e8x_fsxIzb93Zk/view?usp=sharing" target="_blank">Orb Radar</a> para auxiliar na localização e coleta das Orbs pelo mapa.</p>
+
+        <h2>• Explicação de como usar o Radar:</h2>
+        <ul>
+          <li>1. Insira o <strong>Nick Personagem</strong>.</li>
+          <li>2. Insira a <strong>coordenada que você está 1x</strong>.</li>
+          <li>3. Escolha <strong>proximidade ou por região</strong> (sugiro por região).</li>
+          <li>4. Clique para <strong>copiar a coordenada da Orb</strong>.</li>
+          <li>5. <strong>Clique somente quando pegar a ORB</strong> para avançar à próxima.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- PARTE 1 -->
+    <div id="p1" class="tab-content">
+      <div class="card">
+        <h1>👁️ PARTE 1 — Dead Unown</h1>
+
+        <div class="alert alert-warning">
+          <strong>⚠️ DISCLAIMER: SISTEMA DE DIA / NOITE</strong><br>
+          Todas as referências de horário são <strong>dentro do jogo</strong>:<br>
+          • ☀️ <strong>DIA:</strong> Verifique o ícone do sol no minimapa.<br>
+          • 🌙 <strong>NOITE:</strong> Verifique o ícone da lua no minimapa.
+        </div>
+
+        <h2>📜 Iniciando a Quest</h2>
+        <p>Para reviver o Unown em <strong>Ruins of Alph</strong> <button class="coord-click" onclick="copyCoord('3032, 30359, 6')">3032, 30359, 6 📋</button>, é necessário realizar esta etapa. O NPC/Unown aparece <strong>somente de dia</strong>.</p>
+
+        <h2>🔤 Etapa 1 — Os Unowns (R, U, I, N)</h2>
+
+        <h3>1️⃣ Unown R (Horário: ☀️ DIA)</h3>
+        <ol>
+          <li>1. Vá até <strong>Ruins of Alph</strong> <button class="coord-click" onclick="copyCoord('3032, 30359, 6')">3032, 30359, 6 📋</button> e fale com o <strong>Dead Unown</strong> para receber um papel.</li>
+          <li>2. Leve um Pokémon com a habilidade <strong>Light</strong> até <button class="coord-click" onclick="copyCoord('2499, 30721, 6')">2499, 30721, 6 📋</button>.</li>
+          <li>3. Use <strong>Light</strong> para fazer a pedra aparecer e use o papel nela.</li>
+          <li>4. Volte ao <strong>Dead Unown</strong>, pegue o segundo papel e vá para <button class="coord-click" onclick="copyCoord('2798, 30884, 6')">2798, 30884, 6 📋</button>.</li>
+          <li>5. Use <strong>Light</strong> e o papel na nova pedra.</li>
+          <li>6. O <strong>Unown R</strong> aparecerá em <button class="coord-click" onclick="copyCoord('2800, 30883, 6')">2800, 30883, 6 📋</button>. Fale com ele para concluir.</li>
+        </ol>
+
+        <h3>2️⃣ Unown U (Charadas na Burned Tower)</h3>
+        <ol>
+          <li>1. Pegue a <strong>Strange Rock</strong> em <button class="coord-click" onclick="copyCoord('2994, 30403, 6')">2994, 30403, 6 📋</button>.</li>
+          <li>2. Vá até a <strong>Burned Tower</strong> em Ecruteak e use a pedra no monte de terra <button class="coord-click" onclick="copyCoord('3008, 30139, 5')">3008, 30139, 5 📋</button>.</li>
+          <li>3. O Unown se teleportará para a entrada <button class="coord-click" onclick="copyCoord('3026, 30139, 5')">3026, 30139, 5 📋</button>. Responda às charadas conforme avança pela torre:
+            <ul>
+              <li>• <button class="coord-click" onclick="copyCoord('3026, 30139, 5')">3026, 30139, 5 📋</button> ➔ <strong>P:</strong> Clear Water ➔ <strong>R:</strong> <button class="coord-click" onclick="copyCoord('suicune')">suicune 📋</button></li>
+              <li>• <button class="coord-click" onclick="copyCoord('3026, 30134, 4')">3026, 30134, 4 📋</button> ➔ <strong>P:</strong> Rugido do Trovao ➔ <strong>R:</strong> <button class="coord-click" onclick="copyCoord('raikou')">raikou 📋</button></li>
+              <li>• (Subindo torre) ➔ <strong>P:</strong> Cinzas Vulcanicas ➔ <strong>R:</strong> <button class="coord-click" onclick="copyCoord('entei')">entei 📋</button></li>
+              <li>• <button class="coord-click" onclick="copyCoord('3030, 30131, 2')">3030, 30131, 2 📋</button> ➔ <strong>P:</strong> Fogo Sagrado ➔ <strong>R:</strong> <button class="coord-click" onclick="copyCoord('ho-oh')">ho-oh 📋</button></li>
+            </ul>
+          </li>
+          <li>4. Ao responder a última, ele desaparecerá deixando o <strong>Strange Paper</strong> no chão. Colete-o.</li>
+        </ol>
+
+        <h3>3️⃣ Unown I (Horário: 🌙 NOITE)</h3>
+        <p>Com o <strong>Strange Paper</strong>, você deve acender as 4 fogueiras espalhadas por Johto <strong>em ordem estrita</strong>:</p>
+        <ol>
+          <li>1. <button class="coord-click" onclick="copyCoord('3533, 30431, 6')">3533, 30431, 6 📋</button></li>
+          <li>2. <button class="coord-click" onclick="copyCoord('2337, 30690, 6')">2337, 30690, 6 📋</button></li>
+          <li>3. <button class="coord-click" onclick="copyCoord('2552, 30424, 6')">2552, 30424, 6 📋</button></li>
+          <li>4. <button class="coord-click" onclick="copyCoord('3379, 30064, 6')">3379, 30064, 6 📋</button></li>
+        </ol>
+        <div class="alert alert-info">💡 Após acender a última fogueira, colete a <strong>Unown Key</strong> que cairá no chão.</div>
+
+        <h3>4️⃣ Unown N</h3>
+        <ol>
+          <li>1. Use a chave no baú em <button class="coord-click" onclick="copyCoord('2954, 30467, 7')">2954, 30467, 7 📋</button> para obter o <strong>Strange Ancient Tablet</strong>.</li>
+          <li>2. Coloque o tablet no altar em <button class="coord-click" onclick="copyCoord('3166, 30081, 6')">3166, 30081, 6 📋</button>.</li>
+          <li>3. Um Unown aparecerá instruindo a retornar para <strong>Ruins of Alph</strong>.</li>
+        </ol>
+
+        <h2>🧩 Segunda Parte — Ruins of Alph (Dungeon & Minigame)</h2>
+        <div class="alert alert-danger">📌 <strong>Pré-requisito para entrar:</strong> Tenha em sua bag os Pokémon <strong>Unown !</strong> e <strong>Unown ?</strong> (capturáveis na dungeon liberada após concluir a quest de Ruins of Alph).</div>
+        <ol>
+          <li>1. Entregue os dois Unowns para liberar o acesso à dungeon, você irá notar a mensagem: <em>"You 've entered a mysterious chamber. What will you find inside?"</em></li>
+          <li>2. <strong>Minigame:</strong> Mova os Unowns para formar as palavras:
+            <ul>
+              <li>• R A I N B O W</li>
+              <li>• H E R O</li>
+            </ul>
+          </li>
+          <li>3. Volte para dentro da caverna e fale com o <strong>Dr. Hinoki</strong>.</li>
+          <li>4. Responda corretamente à série de perguntas, use a planilha que fiz logo abaixo, é só dar ctrl F e encontrar a pergunta com a resposta do lado. Você tem 30 segundos para responder cada pergunta se não me engano:</li>
+        </ol>
+
+        <p style="margin-bottom: 12px;">🔗 <a href="https://docs.google.com/spreadsheets/d/1yEsB_7faCVnw71zyqneMBxw0YwP4u8YT3XJXLbFUNuU/edit?usp=sharing" target="_blank">Respostas Dead Unown</a> (Use ctrl F na planilha para encontrar as respostas)</p>
+        <div class="alert alert-warning">⌛ <strong>Atenção:</strong> Se errar qualquer pergunta do Dr. Hinoki, haverá um <strong>cooldown de 5 minutos</strong> para tentar novamente.</div>
+
+        <h2>📌 Terceira Parte — Indo atrás do Ho-Oh</h2>
+        <p>Após responder corretamente às perguntas do <strong>Dr. Hinoki</strong>, ele revelará informações sobre o <strong>Ho-Oh</strong>. A partir deste momento, você precisará conversar com diversos NPCs espalhados por Johto.</p>
+        <div class="alert alert-info"><strong>Importante:</strong> É obrigatório conversar com <strong>TODOS</strong> os NPCs listados abaixo. Não é necessário seguir uma ordem específica, mas certifique-se de não esquecer nenhum.</div>
+
+        <h3>📍 Localização dos NPCs (Cidade — NPC: Coordenadas)</h3>
+        <div class="npc-grid">
+          <div class="npc-item"><input type="checkbox" id="n1"><label for="n1">Goldenrod — Morgan<br><button class="coord-click" onclick="copyCoord('2793, 30665, 6')">2793, 30665, 6 📋</button></label></div>
+          <div class="npc-item"><input type="checkbox" id="n2"><label for="n2">Cianwood — Kai<br><button class="coord-click" onclick="copyCoord('2313, 30704, 6')">2313, 30704, 6 📋</button></label></div>
+          <div class="npc-item"><input type="checkbox" id="n3"><label for="n3">Olivine — Elliot<br><button class="coord-click" onclick="copyCoord('2672, 30371, 5')">2672, 30371, 5 📋</button></label></div>
+          <div class="npc-item"><input type="checkbox" id="n4"><label for="n4">Arborville — Sophia<br><button class="coord-click" onclick="copyCoord('2736, 30087, 6')">2736, 30087, 6 📋</button></label></div>
+          <div class="npc-item"><input type="checkbox" id="n5"><label for="n5">Ecruteak — Sage Raiden<br><button class="coord-click" onclick="copyCoord('3049, 30230, 6')">3049, 30230, 6 📋</button></label></div>
+          <div class="npc-item"><input type="checkbox" id="n6"><label for="n6">Cherrygrove — Marina<br><button class="coord-click" onclick="copyCoord('3310, 30512, 6')">3310, 30512, 6 📋</button></label></div>
+          <div class="npc-item"><input type="checkbox" id="n7"><label for="n7">New Bark — Arwin<br><button class="coord-click" onclick="copyCoord('3585, 30487, 6')">3585, 30487, 6 📋</button></label></div>
+          <div class="npc-item"><input type="checkbox" id="n8"><label for="n8">Mahogany — Gerard<br><button class="coord-click" onclick="copyCoord('3271, 30224, 6')">3271, 30224, 6 📋</button></label></div>
+          <div class="npc-item"><input type="checkbox" id="n9"><label for="n9">Blackthorn — Clara<br><button class="coord-click" onclick="copyCoord('3533, 30227, 5')">3533, 30227, 5 📋</button></label></div>
+          <div class="npc-item"><input type="checkbox" id="n10"><label for="n10">Alto Mare — Marco<br><button class="coord-click" onclick="copyCoord('3031, 31323, 5')">3031, 31323, 5 📋</button></label></div>
+          <div class="npc-item"><input type="checkbox" id="n11"><label for="n11">Mt. Ember — Riona<br><button class="coord-click" onclick="copyCoord('3736, 31117, 6')">3736, 31117, 6 📋</button></label></div>
+          <div class="npc-item"><input type="checkbox" id="n12"><label for="n12">Azalea — Joan<br><button class="coord-click" onclick="copyCoord('3010, 30799, 6')">3010, 30799, 6 📋</button></label></div>
+          <div class="npc-item"><input type="checkbox" id="n13"><label for="n13">Silvertown — Alphonse<br><button class="coord-click" onclick="copyCoord('3703, 30279, 2')">3703, 30279, 2 📋</button></label></div>
+          <div class="npc-item"><input type="checkbox" id="n14"><label for="n14">Violet — Mr. Donovan<br><button class="coord-click" onclick="copyCoord('3157, 30311, 6')">3157, 30311, 6 📋</button></label></div>
+          <div class="npc-item"><input type="checkbox" id="n15"><label for="n15">Dunes Of Silence — Lena<br><button class="coord-click" onclick="copyCoord('2327, 31184, 7')">2327, 31184, 7 📋</button></label></div>
+        </div>
+
+        <h2>🪶 Como liberar e coletar a Pena do Ho-Oh</h2>
+        <p><strong>Dica do Guia:</strong> Existem variações nesta etapa da quest, mas este é o método testado que funciona 100% sem erros.</p>
+        <ol>
+          <li>1. <strong>Revisitar os NPCs:</strong> Após ter falado com todos da lista pela primeira vez, converse novamente com o NPC da <strong>Dunes of Silence</strong> para que um deles apresente um <strong>diálogo diferente</strong>. Esse diálogo é o gatilho que libera a aparição da pena.</li>
+          <li>2. <strong>Coleta da Pena:</strong> A animação de drop da pena do Ho-Oh ocorre em locais e horários específicos.</li>
+          <li>3. <strong>Variações:</strong> A animação pode não ocorrer no SQM exato ou no minuto cravado. <strong>Aconselha-se aguardar no local indicado até a animação acontecer.</strong></li>
+        </ol>
+
+        <h3>⏰ Horários e Coordenadas Encontradas:</h3>
+        <ul>
+          <li>• [12:00 AM] — <button class="coord-click" onclick="copyCoord('2681, 30036, 6')">2681, 30036, 6 📋</button></li>
+          <li>• [01:00 PM] — <button class="coord-click" onclick="copyCoord('3318, 30025, 6')">3318, 30025, 6 📋</button></li>
+          <li>• [03:00 PM] — <button class="coord-click" onclick="copyCoord('3614, 30183, 5')">3614, 30183, 5 📋</button></li>
+          <li>• [09:00 AM] — <button class="coord-click" onclick="copyCoord('2716, 30423, 3')">2716, 30423, 3 📋</button></li>
+          <li>• [01:06 AM] — <button class="coord-click" onclick="copyCoord('3187, 30284, 6')">3187, 30284, 6 📋</button></li>
+          <li>• [04:30 AM] — <button class="coord-click" onclick="copyCoord('3058, 30786, 6')">3058, 30786, 6 📋</button></li>
+          <li>• [HORÁRIO DESCONHECIDO] — <button class="coord-click" onclick="copyCoord('2346, 30691, 5')">2346, 30691, 5 📋</button></li>
+          <li>• [HORÁRIO DESCONHECIDO] — <button class="coord-click" onclick="copyCoord('3370, 30459, 6')">3370, 30459, 6 📋</button></li>
+        </ul>
+        <div class="alert alert-warning">⚠️ <strong>Nota final:</strong> É necessário encontrar o Ho-Oh e coletar a pena apenas <strong>UMA VEZ</strong> para liberar a próxima etapa da quest.</div>
+      </div>
+    </div>
+
+    <!-- PARTE 2 -->
+    <div id="p2" class="tab-content">
+      <div class="card">
+        <h1>🎽 PARTE 2 — Kimono Girls</h1>
+        <div class="alert alert-warning">⚠️ <strong>IMPORTANTE:</strong> ANTES DE COMEÇAR, SIGA O SPOILER DA KIMONO GIRLS QUEST ATÉ O FIM!</div>
+
+        <h2>📍 Primeira Parte — Entrega de Shinies</h2>
+        <ol>
+          <li>1. Vá até o teatro de <strong>Ecruteak</strong>.</li>
+          <li>2. Fale com a <strong>NPC Zuki</strong>. Ela solicitará que você fale com as outras 4 Kimono Girls, que pedirão um Pokémon <em>shiny de clã</em> para entrega:
+            <ul>
+              <li>• Shiny Cloyster</li>
+              <li>• Shiny Elekid</li>
+              <li>• Shiny Magby</li>
+              <li>• Shiny Grumpig</li>
+              <li>• Shiny Fearow</li>
+            </ul>
+          </li>
+        </ol>
+
+        <h3>💰 Stones e Taxas cobradas pelos NPCs (Apenas Fearow em Kanto, os demais na NW):</h3>
+        <ul>
+          <li>• <strong>Fearow +10</strong> ➔ 15 Feather Stone + 160k</li>
+          <li>• <strong>Cloyster +20</strong> ➔ 60 Ice Stone + 2.5kk</li>
+          <li>• <strong>Grumpig +20</strong> ➔ 77 Enigma Stone + 2.5kk</li>
+          <li>• <strong>Elekid +20</strong> ➔ 36 Thunder Stone + 2.5kk</li>
+          <li>• <strong>Magby +20</strong> ➔ 36 Fire Stone + 2.5kk</li>
+        </ul>
+
+        <ol start="3">
+          <li>3. Volte e fale novamente com a <strong>Zuki</strong>, que solicitará o <strong>Shiny Fearow</strong>.</li>
+          <li>4. <strong>Recompensa da etapa:</strong> Escolha 1 Eevolução na Premier Ball (Umbreon, Flareon, Vaporeon, Espeon ou Jolteon).</li>
+        </ol>
+
+        <h2>🎭 Segunda Parte — O Espetáculo (Horário: 🌙 NOITE)</h2>
+        <ol>
+          <li>1. Fale novamente com a <strong>NPC Zuki</strong> à noite (horário dentro do jogo).</li>
+          <li>2. Siga as instruções intuitivas do show:
+            <ul>
+              <li>• Se preparar no <strong>Camarim</strong>.</li>
+              <li>• Chamar as demais Kimono Girls.</li>
+              <li>• Acender as luzes clicando no SQM abaixo delas.</li>
+              <li>• Abaixar as cortinas no SQM abaixo delas.</li>
+            </ul>
+          </li>
+          <li>3. Uma <em>cinematic</em> se iniciará contando a história do teatro.</li>
+        </ol>
+
+        <h2>⚔️ Terceira Parte — Duelos em Sequência</h2>
+        <p>Enfrente cada Kimono Girl em ordem direta.</p>
+
+        <div class="alert alert-warning">
+          <strong>⚠️ Regras do Duelo:</strong><br>
+          • <strong>Duração:</strong> 2 minutos por batalha.<br>
+          • <strong>Limitação:</strong> Apenas 1 único Pokémon por duelo.<br>
+          • <strong>Proibições:</strong> Sem Moomoo Milk, Berries, Elixirs ou Medicines.<br>
+          • <strong>Derrota:</strong> Se perder qualquer luta, voltará ao primeiro NPC (é necessário vencer as 5 em sequência).
+        </div>
+
+        <h3>👥 Ordem dos Duelos:</h3>
+        <p style="margin-bottom: 12px;">1. Flareon ➔ 2. Vaporeon ➔ 3. Jolteon ➔ 4. Espeon ➔ 5. Umbreon</p>
+
+        <h3>🛡️ Sugestão de Time Usado:</h3>
+        <ul>
+          <li>• <strong>Magcargo TM</strong></li>
+          <li>• <strong>Gogoat (sem TM)</strong> — Usar a skill <em>Horn Leech</em> na mecânica do shield.</li>
+          <li>• <strong>Marowak TM</strong> — (Bom para o <em>device</em>, ou no Gogoat).</li>
+          <li>• <strong>Honchkrow TM</strong></li>
+          <li>• <strong>Infernape TM</strong></li>
+        </ul>
+
+        <div class="alert alert-info">🏆 <strong>Recompensa Final:</strong> <code>Clear Bell</code> (necessário para a etapa da Bell Tower).</div>
+      </div>
+    </div>
+
+    <!-- PARTE 3 -->
+    <div id="p3" class="tab-content">
+      <div class="card">
+        <h1>📌 PARTE 3 — Burned Tower & NPC Morty</h1>
+        <p>Após coletar a <strong>Pena do Ho-Oh</strong>, o acesso à <strong>Bell Tower</strong> estará liberado (você não será mais expelled ao pisar lá). Fale com o <strong>NPC Sage Masa</strong>, que solicitará a investigação da <strong>Burned Tower</strong>.</p>
+
+        <h2>🔥 O Incêndio na Burned Tower</h2>
+        <p>Na entrada da torre, fale com o <strong>NPC Gaku</strong>. Ele informará que a torre está em chamas e precisa de ajuda para apagar o fogo. Se nada acontecer após entrar na torre, só sair e entrar novamente.</p>
+
+        <div class="alert alert-danger">⚠️ <strong>Atenção:</strong> As chamas <strong>NÃO</strong> podem ser apagadas com golpes do tipo Água! Você <strong>DEVE</strong> utilizar ataques do tipo <strong>FANTASMA/DARK</strong>.</div>
+
+        <ul>
+          <li>• <strong>Preparação:</strong> Leve Pokémons do tipo <strong>Fantasma/Dark</strong> fortes e em boa quantidade.</li>
+          <li>• <strong>Mecânica:</strong> A cada chama apagada, um Pokémon Fantasma surgirá para batalhar.</li>
+          <li>• <strong>Tempo Limite:</strong> É necessário apagar o fogo de toda a torre dentro do tempo estipulado. O tempo é bem apertado, então não enrole e utilize toda a sua equipe.</li>
+        </ul>
+
+        <div class="alert alert-info">🎁 <strong>Desbloqueio:</strong> Concluir esta etapa libera a <strong>Mystery Dungeon: Burned Tower</strong> (localizada na entrada da torre).</div>
+
+        <h2>👻 Duelo Contra o NPC Morty</h2>
+        <p>No subsoil da Burned Tower, encontre o <strong>NPC Morty</strong> na seguinte localização:</p>
+        <p>📍 <strong>Coordenadas:</strong> <button class="coord-click" onclick="copyCoord('3024, 30133, 6')">3024, 30133, 6 📋</button></p>
+        <p style="margin-top: 10px;">Ao falar com ele, iniciará um duelo no modo <strong>Pokeview (6v6)</strong>.</p>
+
+        <h3>⚔️ Time do Morty:</h3>
+        <ul>
+          <li>• <strong>Sableye</strong> <em>(Spamma Mean Look)</em></li>
+          <li>• <strong>Banette</strong></li>
+          <li>• <strong>Gengar</strong></li>
+          <li>• <strong>Misdreavus</strong></li>
+          <li>• <strong>Hisuian Typhlosion</strong></li>
+          <li>• <strong>Shiny Froslass</strong></li>
+        </ul>
+
+        <h3>🛡️ Mecânica Única do Boss:</h3>
+        <p>O Morty utilizará <strong>Elixir de Defesa</strong>, <strong>Elixir de Ataque</strong> e <strong>Moomoo Milk</strong> nos Pokémons dele durante o combate. O ideal é recuar e aguardar o efeito dos elixires passar para atacar com segurança.</p>
+
+        <h3>💡 Time que usei (Fluffy):</h3>
+        <ul>
+          <li>• <strong>Zoroark</strong> <em>(Sableye de atk é melhor aqui, esqueci que tinha)</em></li>
+          <li>• <strong>Raticate TM</strong> <em>(com Cure e Device)</em></li>
+          <li>• <strong>Shiny Weavile</strong></li>
+          <li>• <strong>Gardevoir TM</strong></li>
+          <li>• <strong>Houndoom TM</strong></li>
+          <li>• <strong>Honchkrow TM</strong></li>
+        </ul>
+
+        <div class="alert alert-warning">⚠️ <strong>Dica:</strong> Vc não vai conseguir finalizar com 1 poke só, sempre que faltar dano puxa o Raticate com device, finaliza e troca de poke novamente pra ir voltando CD na bag. O Raticate da casa tem Y-Cure, use.</div>
+
+        <h3>🔄 Próximos Passos</h3>
+        <ol>
+          <li>1. Derrote o <strong>Morty</strong>.</li>
+          <li>2. Retorne ao <strong>NPC Sage Masa</strong> para dar continuidade à quest (na Bell Tower).</li>
+        </ol>
+      </div>
+    </div>
+
+    <!-- PARTE 4 -->
+    <div id="p4" class="tab-content">
+      <div class="card">
+        <h1>📌 PARTE 4 — Batalha Contra os Sábios (Bell Tower)</h1>
+        <p>Fale com o <strong>Sage Masa</strong> em 📍 <button class="coord-click" onclick="copyCoord('3064, 30106, 6')">3064, 30106, 6 📋</button>. Ele pedirá para você subir a <strong>Bell Tower</strong> derrotando os demais sábios para provar o seu valor.</p>
+
+        <div class="alert alert-info">💡 <strong>Dica:</strong> Os Pokémons que eu usei (Fluffy) em cada Sage estão indicados entre parênteses ao lado de cada um.</div>
+
+        <h2>⛩️ Desafiando os Sages da Torre</h2>
+
+        <h3>1️⃣ Sage Yone</h3>
+        <ul>
+          <li>• <strong>Mega Scolipede</strong> ➔ <em>(Magcargo TM)</em></li>
+          <li>• <strong>Mega Froslass</strong> ➔ <em>(Charizard TM)</em></li>
+          <li>• <strong>Mega Skarmory</strong> ➔ <em>(Raichu TM)</em></li>
+          <li>• <strong>Mega Heracross</strong> ➔ <em>(Farfetch'd TM)</em></li>
+          <li>• <strong>Mega Aerodactyl</strong> ➔ <em>(Empoleon TM)</em></li>
+          <li>• <strong>Mega Scizor</strong> ➔ <em>(Houndoom TM — <strong>usar Device</strong>)</em></li>
+        </ul>
+
+        <h3>2️⃣ Sage Chen</h3>
+        <ul>
+          <li>• <strong>Mega Excadrill</strong> ➔ <em>(Empoleon TM)</em></li>
+          <li>• <strong>Mega Metagross</strong> ➔ <em>(Houndoom TM)</em></li>
+          <li>• <strong>Mega Eelektross</strong> ➔ <em>(Torterra TM)</em></li>
+          <li>• <strong>Mega Barbaracle</strong> ➔ <em>(Gogoat TM)</em></li>
+          <li>• <strong>Mega Glimmora</strong> ➔ <em>(Magnezone TM)</em></li>
+          <li>• <strong>Shiny Electabuzz</strong> ➔ <em>(Marowak TM — <strong>usar Device</strong>)</em></li>
+        </ul>
+
+        <h3>3️⃣ Sage Cain</h3>
+        <ul>
+          <li>• <strong>Mega Pyroar</strong> ➔ <em>(Magcargo TM)</em></li>
+          <li>• <strong>Mega Dragalge</strong> ➔ <em>(Marowak TM)</em></li>
+          <li>• <strong>Mega Sharpedo</strong> ➔ <em>(Gogoat TM)</em></li>
+          <li>• <strong>Mega Scovillain</strong> ➔ <em>(Farfetch'd TM)</em></li>
+          <li>• <strong>Mega Chandelure</strong> ➔ <em>(Raticate TM)</em></li>
+          <li>• <strong>Mega Absol</strong> ➔ <em>(Infernape TM — <strong>usar Device</strong>)</em></li>
+        </ul>
+
+        <h3>4️⃣ Sage Lee</h3>
+        <ul>
+          <li>• <strong>Mega Falinks</strong> ➔ <em>(Pidgeot TM)</em></li>
+          <li>• <strong>Mega Chimecho</strong> ➔ <em>(Honchkrow TM)</em></li>
+          <li>• <strong>Mega Clefable</strong> ➔ <em>(Tentacruel TM)</em></li>
+          <li>• <strong>Mega Gallade</strong> ➔ <em>(Farfetch'd TM)</em></li>
+          <li>• <strong>Mega Hawlucha</strong> ➔ <em>(Gallade TM)</em></li>
+          <li>• <strong>Shiny Alakazam</strong> ➔ <em>(Raticate TM — <strong>usar Device</strong>)</em></li>
+        </ul>
+
+        <h3>5️⃣ Sage Ty</h3>
+        <ul>
+          <li>• <strong>Mega Baxcalibur</strong> ➔ <em>(Magnezone TM)</em></li>
+          <li>• <strong>Mega Raichu X</strong> ➔ <em>(Mega Altaria TM)</em></li>
+          <li>• <strong>Mega Drampa</strong> ➔ <em>(Mega Gardevoir TM)</em></li>
+          <li>• <strong>Mega Abomasnow</strong> ➔ <em>(Houndoom TM)</em></li>
+          <li>• <strong>Mega Dragonite</strong> ➔ <em>(Ninetales TM)</em></li>
+          <li>• <strong>Shiny Snorlax</strong> ➔ <em>(Infernape TM — <strong>usar Device</strong>)</em></li>
+        </ul>
+
+        <h2>⚔️ Batalha Final: Sage Masa</h2>
+        <p>Após derrotar todos os 5 Sages, retorne à entrada e fale novamente com o <strong>Sage Masa</strong>. Você precisará enfrentá-lo no duelo final da torre:</p>
+        <ul>
+          <li>• <strong>Mega Golisopod</strong> ➔ <em>(Houndoom TM)</em></li>
+          <li>• <strong>Mega Feraligatr</strong> ➔ <em>(Gardevoir TM) - Use o MoonBlast apenas quando ele usar shield</em></li>
+          <li>• <strong>Mega Victreebel</strong> ➔ <em>(Farfetch'd TM)</em></li>
+          <li>• <strong>Mega Starmie</strong> ➔ <em>(Raticate TM)</em></li>
+          <li>• <strong>Mega Meganium</strong> ➔ <em>(Tentacruel TM)</em></li>
+          <li>• <strong>Shiny Gyarados</strong> ➔ <em>(Raichu TM — <strong>usar Device</strong>)</em></li>
+        </ul>
+
+        <h2>📜 O Ritual do Ho-Oh</h2>
+        <ol>
+          <li>1. Após vencer a batalha, fale com o <strong>Sage Masa</strong> novamente.</li>
+          <li>2. Suba até o topo da Bell Tower e converse com o <strong>Elder Kame</strong>.</li>
+          <li>3. Ele revelará a história da <strong>Rainbow Wing</strong> e os detalhes do ritual para invocar o <strong>Ho-Oh</strong>.</li>
+          <li>4. Entregue os itens necessários para a invocação (<strong>Clear Bell</strong> e <strong>Rainbow Wing</strong>, adquiridos nas etapas anteriores).</li>
+          <li>5. Após entregar os itens, o Elder Kame pedirá para você falar com o <strong>Eusine</strong>.</li>
+        </ol>
+      </div>
+    </div>
+
+    <!-- PARTE 5 -->
+    <div id="p5" class="tab-content">
+      <div class="card">
+        <h1>📌 PARTE 5 — Encontros com Eusine</h1>
+        <p><strong>Eusine</strong> é um pesquisador especialista em Pokémon lendários que persegue a pista do <strong>Suicune</strong> há 10 anos. nesta etapa, você precisará acompanhá-lo por diversos pontos do mapa.</p>
+
+        <h2>📍 Rotas de Encontro com Eusine</h2>
+        <p>Siga a sequência de localizações para avançar na história:</p>
+        <ol>
+          <li>1. <button class="coord-click" onclick="copyCoord('3023, 30145, 9')">3023, 30145, 9 📋</button></li>
+          <li>2. <button class="coord-click" onclick="copyCoord('3180, 30211, 6')">3180, 30211, 6 📋</button></li>
+          <li>3. <button class="coord-click" onclick="copyCoord('3424, 30294, 6')">3424, 30294, 6 📋</button></li>
+          <li>4. <button class="coord-click" onclick="copyCoord('3666, 30505, 6')">3666, 30505, 6 📋</button></li>
+          <li>5. <button class="coord-click" onclick="copyCoord('2333, 30691, 6')">2333, 30691, 6 📋</button> <em>(Praia de Cianwood)</em></li>
+        </ol>
+
+        <h2>⚔️ Duelo Contra Eusine (Praia de Cianwood)</h2>
+        <p>No 5º encontro, <strong>Eusine</strong> desafiará você para um duelo na praia.</p>
+        <ul>
+          <li>• <strong>Modo de Batalha:</strong> Pokéview <em>(Máximo de 4 Pokémon)</em>.</li>
+          <li>• <strong>Mecânica do Boss:</strong> Assim como o Morty, Eusine usa <strong>Moomoo Milk</strong>, <strong>Elixir de Defesa</strong> e <strong>Elixir de Ataque</strong> em todos os Pokémon dele.</li>
+        </ul>
+
+        <h3>🥊 Time do Eusine & Counters Recomendados:</h3>
+        <ul>
+          <li>• <strong>Shiny Hypno</strong> ➔ <em>(Weavile T1H)</em></li>
+          <li>• <strong>Gengar</strong> ➔ <em>(Raticate TM com Cure — Usar Device e evitar que ele morra, use sempre para finalizar)</em></li>
+          <li>• <strong>Shiny Electrode</strong> ➔ <em>(Marowak TM — Use Elixir de Atk aqui)</em></li>
+          <li>• <strong>Alakazam</strong> ➔ <em>(Honchkrow TM)</em></li>
+        </ul>
+
+        <h2>📜 A Busca pelo Conserto do Clear Bell</h2>
+        <ol>
+          <li>1. <strong>Diálogo Pós-Duelo:</strong> Após a vitória, Eusine dirá que continuará a busca pelo Suicune.</li>
+          <li>2. <strong>Kimono Girl:</strong> Fale com a <strong>Kimono Girl Suki</strong> no teatro em Ecruteak.</li>
+          <li>3. <strong>Apresentando os Itens:</strong> Fale novamente com o Eusine em Cianwood. Ele mencionará boatos sobre a pena e o sino sumidos. Como você já possui o <strong>Clear Bell</strong> e a <strong>Rainbow Wing</strong> (coletados nas partes anteriores), mostre-os a ele. Impressionado, Eusine sugere que uma pesquisadora pode consertar o sino.</li>
+          <li>4. <strong>Ruins of Alpha:</strong> Dirija-se até a <strong>Professora Kohana</strong> nas Ruins of Alpha 📍 <button class="coord-click" onclick="copyCoord('3045, 30405, 5')">3045, 30405, 5 📋</button>.</li>
+          <li>5. <strong>Análise:</strong> A professora pedirá 30 segundos e informará que serão necessários itens ligados ao <strong>Ho-Oh</strong> para restaurar o Clear Bell. Em seguida, ela pedirá que você retorne ao Eusine.</li>
+          <li>6. <strong>Retorno ao Eusine:</strong> Fale com o Eusine em 📍 <button class="coord-click" onclick="copyCoord('2332, 30693, 6')">2332, 30693, 6 📋</button>. Ele explicará que os Cães Lendários costumam se aproximar de Pokémon poderosos e perguntará se a Professora Kohana te deu o <strong>Pokegear</strong> (necessário para localizá-los).</li>
+        </ol>
+      </div>
+    </div>
+
+    <!-- PARTE 6 -->
+    <div id="p6" class="tab-content">
+      <div class="card">
+        <h1>📌 PARTE 6 — Dungeon dos Cães Lendários & Investigação</h1>
+        <p>Nesta etapa, você precisará encontrar e concluir as 3 dungeons dos cães lendários localizadas na área <strong>Mt. Silver 250+</strong>.</p>
+
+        <h2>🏔️ Dungeons no Mt. Silver</h2>
+        <p>📍 <strong>Coordenadas das Dungeons:</strong> <em>Em parenteses esta os pokes que usei (Fluffy)</em></p>
+        <ul>
+          <li>• <strong>Entei</strong> ➔ <button class="coord-click" onclick="copyCoord('2228, 36226, 8')">2228, 36226, 8 📋</button> <em>(Blastoise TM + Sudowoodo ou Golden Steelix)</em></li>
+          <li>• <strong>Suicune</strong> ➔ <button class="coord-click" onclick="copyCoord('1962, 36589, 6')">1962, 36589, 6 📋</button> <em>(Blastoise TM + Dachsbun + S. Bellossom)</em></li>
+          <li>• <strong>Raikou</strong> ➔ <button class="coord-click" onclick="copyCoord('2139, 37148, 5')">2139, 37148, 5 📋</button> <em>(Ampharos Raio TM + Golden Steelix)</em></li>
+        </ul>
+
+        <div class="alert alert-warning">⚠️ Para quem esta fazendo essas dungeons pela primeira vez, aconselho pedir dicas para alguém aqui do Discord que já fez como @Fluffy @Ryuzin @Guima @Zynked @Rafilsck, entre outros, ou assistir vídeos no youtube, não é tão simples. Cuidado com as traps e não tenha vergonha de voltar o caminho, quando necessário levar os lures para outro lugar.</div>
+
+        <div class="alert alert-info"><strong>Próximo Passo:</strong> Após completar as três dungeons, volte ao <strong>Eusine</strong> 📍 <button class="coord-click" onclick="copyCoord('2333, 30691, 6')">2333, 30691, 6 📋</button>. Ele orientará você a confirmar com a <strong>Professora Kohana</strong> 📍 <button class="coord-click" onclick="copyCoord('3045, 30405, 5')">3045, 30405, 5 📋</button> nas <em>Ruins of Alpha</em> se você possui todos os materiais.</div>
+
+        <h2>📦 Lista de Itens Necessários</h2>
+        <p>Converse com a Professora Kohana. Para reparar o <strong>Clear Bell</strong>, ela pedirá os seguintes itens:</p>
+        <ul>
+          <li>• <strong>100x</strong> Mystic Star</li>
+          <li>• <strong>100x</strong> Metal Stone</li>
+          <li>• <strong>1x</strong> Clear Bell</li>
+          <li>• <strong>1x</strong> Rainbow Wing</li>
+          <li>• <strong>20x</strong> Pelo do Raikou <em>(obtido ao completar diariamente a dungeon dos cães)</em></li>
+          <li>• <strong>20x</strong> Pelo do Entei <em>(obtido ao completar diariamente a dungeon dos cães)</em></li>
+          <li>• <strong>20x</strong> Pelo do Suicune <em>(obtido ao completar diariamente a dungeon dos cães)</em></li>
+        </ul>
+
+        <h2>🔍 O Roubo dos Artefatos</h2>
+        <ol>
+          <li>1. <strong>Entrega:</strong> Entregue os itens à Professora Kohana. Ela pedirá que aguarde o processo de reparo.</li>
+          <li>2. <strong>O Incidente:</strong> A professora revelará que o <strong>Clear Bell</strong> e a <strong>Rainbow Wing</strong> sumiram.</li>
+          <li>3. <strong>Detetive House:</strong> Desça um andar e fale com o <strong>Detetive House</strong>. Uma <em>cinematic</em> mostrará um homem misterioso roubando os artefatos.</li>
+          <li>4. <strong>Ferramentas de Investigação:</strong> Fale novamente com o Detetive House. Ele lhe entregará uma <strong>Lupa</strong> e as <strong>Investigation Notes</strong>, liberando a investigação fora do laboratório.</li>
+        </ol>
+
+        <h3>📝 Primeiras Pistas:</h3>
+        <ul>
+          <li>• O suspeito roubou a Rainbow Wing e o Clear Bell.</li>
+          <li>• O suspeito possui um <strong>Shiny Gengar</strong>.</li>
+          <li>• O suspeito tem segundas intenções.</li>
+          <li>• O suspeito pode ser um treinador extremamente poderoso.</li>
+        </ul>
+
+        <h2>🔎 Pistas pelo Mapa</h2>
+        <h3>1️⃣ Ilex Forest</h3>
+        <ul>
+          <li>• <strong>Local:</strong> 📍 <button class="coord-click" onclick="copyCoord('2850, 30802, 6')">2850, 30802, 6 📋</button></li>
+          <li>• <strong>Ação:</strong> Use a <strong>Lupa</strong> no local. Uma <em>cinematic</em> exibirá o suspeito tentando invocar o Celebi sem sucesso e abandonando o local.</li>
+        </ul>
+        <p>📝 <strong>Novas Pistas (Ilex Forest):</strong></p>
+        <ul>
+          <li>• O suspeito provavelmente procurava algo em Ilex Forest.</li>
+          <li>• O suspeito não encontrou o que queria (mudança de planos?).</li>
+          <li>• Ele pode estar tentando criar uma distração.</li>
+        </ul>
+
+        <h3>2️⃣ Lake of Rage</h3>
+        <ul>
+          <li>• <strong>Local:</strong> Na ponte 📍 <button class="coord-click" onclick="copyCoord('3319, 30025, 6')">3319, 30025, 6 📋</button></li>
+          <li>• <strong>Ação:</strong> Use a <strong>Lupa</strong> no local. Uma <em>cinematic</em> mostrará o suspeito utilizando o artefato para controlar o <strong>Red Gyarados</strong>.</li>
+        </ul>
+        <p>📝 <strong>Novas Pistas (Lake of Rage):</strong></p>
+        <ul>
+          <li>• O suspeito sequestrou/controlou o Red Gyarados.</li>
+          <li>• Ele possui poder suficiente para dominar o Red Gyarados.</li>
+          <li>• Trata-se de mais uma distração?</li>
+        </ul>
+
+        <div class="alert alert-info">🚔 <strong>Próximo Passo:</strong> Retorne ao laboratório da Professora Kohana, atualize o <strong>Detetive House</strong> com todas as suas descobertas e ele solicitará que você se dirija à <strong>delegacia de Goldenrod</strong>.</div>
+      </div>
+    </div>
+
+    <!-- PARTE 7 -->
+    <div id="p7" class="tab-content">
+      <div class="card">
+        <h1>🚓 PARTE 7 — Operação de Resgate no Indigo Plateau</h1>
+        <p>Com o caso avançando, dirija-se à delegacia de Goldenrod para dar início à grande operação de resgate no <strong>Indigo Plateau</strong>.</p>
+
+        <h2>🚔 Reunião na Delegacia & Invasão</h2>
+        <ol>
+          <li>1. <strong>Apresentando as Pistas:</strong> Fale com o <strong>Detetive House</strong> 📍 <button class="coord-click" onclick="copyCoord('2914, 30579, 5')">2914, 30579, 5 📋</button>. Ele pedirá para colocar as anotações sobre a mesa. Coloque nessa ordem: <strong>Ruina, Illex, Forest</strong>.</li>
+          <li>2. <strong>O Projetor:</strong> Interaja com o projetor próximo à mesa para iniciar uma <em>cinematic</em>. Durante a reunião, um policial informará que o <strong>Indigo Plateau</strong> foi invadido, a <strong>Elite Four</strong> foi sequestrada e o local está dominado por membros de uma organização acompanhados de diversos Gyarados.</li>
+          <li>3. <strong>Falar com Looker:</strong> Na saída da delegacia, converse com o <strong>Looker</strong> 📍 <button class="coord-click" onclick="copyCoord('2908, 30580, 6')">2908, 30580, 6 📋</button>.</li>
+          <li>4. <strong>Indo para a Liga Pokémon:</strong> Siga até o Indigo Plateau (Mt. Silver), onde as forças policiais estarão reunidas. Fale novamente com o Looker.</li>
+          <li>5. <strong>Limpeza da Área:</strong> Entre na Liga Pokémon e elimine todos os <strong>Strange Masked Grunts</strong> da área.</li>
+        </ol>
+
+        <h2>🏰 A Dungeon da Liga Pokémon</h2>
+        <p>Após derrotar todos os capangas, desça para acessar a <strong>Dungeon</strong>.</p>
+        <ul>
+          <li>• ⏱️ <strong>Duração Máxima:</strong> 3 Horas.</li>
+          <li>• 🛡️ <strong>Objetivo Principal:</strong> Resgatar todos os membros da Elite Four. <strong>Você não pode deixar nenhum líder ser derrotado!</strong> Necessário escoltar o NPC até a entrada do trem, abuse de paredes e não deixe eles tomarem nenhum hit, muito cuidado aqui.</li>
+        </ul>
+
+        <h3>💡 Estratégia de Escolha de Pokémons:</h3>
+        <ul>
+          <li>• <strong>Escoltadores (Suporte/Protect):</strong> Leve Pokémons com habilidades de proteção <em>(ex: Mawile, Pelipper, Kecleon)</em> para absorver dano e curar os NPCs durante o trajeto.</li>
+          <li>• <strong>Speedsters / Dps:</strong> Utilize Pokémons rápidos e de alto dano para eliminar os NPCs inimigos rapidamente.</li>
+        </ul>
+        <div class="alert alert-warning">⚠️ <strong>Time que eu levei (@Fluffy):</strong> Shiny Gengar, Pelipper, Shiny Machoke.</div>
+
+        <h2>🚂 Passo a Passo Dentro do Trem & Posicionamento</h2>
+        <p><strong>Dungeon Parte 1:</strong> Suba nessa área o mais rápido possível e elimine os monstros que a Clair esta enfrentando com seu Dragonite, use o Pokémon de cura em área que levou para não deixar o Dragonite dela morrer.</p>
+        <p>Assim que estiver seguro, use o pokémon com protect para proteger a Clair e corra o mais rápido possível com um elixir de speed até a entrada da dungeon (a escada).</p>
+        <p>Após salvar a Clair, derrote todos os NPC's desse andar e fale com o Enginner à direita no norte, ele vai pedir para você investigar todos os corpos derrotados para encontrar o cartão e entrar no trem. (Cuidado, ao entrar já haverá 2 NPC's te esperando).</p>
+
+        <p style="margin-top: 10px;">Dentro do trem, o objetivo é salvar todos os líderes de ginásio, eles não terão pokémons e praticamente morrem de HS, após a primeira interação, em momento algum você pode ter um pokémon inimigo na mesma tela que eles sem estarem 100% protegidos.</p>
+        <div class="alert alert-danger">Você vai fazer esse mesmo esquema com todos os próximos NPC's, deixando-os sempre <strong>NA DIAGONAL</strong> da porta até salvar todos, algumas salas tem traps, mas os líderes tomam pouco dano das traps, e você pode eventualmente cura-los com seu pokémon de cura.</div>
+
+        <h2>⚔️ Batalhas de Chefe</h2>
+
+        <h3>1️⃣ Duelo Contra Sham & Carl</h3>
+        <p>Ao resgatar todos os líderes, você enfrentará a dupla <strong>Sham e Carl</strong>.</p>
+        <p><strong>Time que usei para o duelo contra Sham/Carl:</strong></p>
+        <ul>
+          <li>• Mega Voir TM</li>
+          <li>• Shiny Fera TM</li>
+          <li>• Golden Sudo (pode ser magcargo)</li>
+          <li>• Houndoom TM</li>
+          <li>• Machamp TM</li>
+          <li>• Infernape TM</li>
+        </ul>
+        <ul>
+          <li>• <strong>Mecânica:</strong> A batalha não possui surpresas complexas.</li>
+          <li>• 💾 <strong>Checkpoint:</strong> Vencer essa batalha garante um <strong>Checkpoint</strong> automático.</li>
+        </ul>
+
+        <h3>2️⃣ Duelo Contra Mask of Ice (Red Gyarados Possuído)</h3>
+        <p>Após a <em>cinematic</em>, siga em frente para encarar o <strong>Mask of Ice</strong>.</p>
+        <div class="alert alert-warning">⚠️ <strong>Atenção no Caminho:</strong> Antes de entrar na sala do chefe, existe um <strong>locker à esquerda</strong>. Tome muito cuidado ao se aproximar, pois o <strong>Red Gyarados estará soltando skills</strong> dentro da sala!</div>
+
+        <ul>
+          <li>• <strong>Formato do Duelo:</strong> Batalha completa liberando até <strong>6 Pokémons</strong> para derrotar o <strong>Red Gyarados Possuído</strong>.</li>
+        </ul>
+        <p><strong>Time que usei para o duelo contra Mask Of Ice:</strong></p>
+        <ul>
+          <li>• Golden Sudo</li>
+          <li>• S. Raichu TM</li>
+          <li>• Zebstrika</li>
+          <li>• S. Jolteon</li>
+          <li>• S. Pachirisu</li>
+          <li>• S. Toxitricity</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- PARTE 8 -->
+    <div id="p8" class="tab-content">
+      <div class="card">
+        <h1>❄️ PARTE 8 — Resgate do Dr. Hinoki (Esconderijo Estranho / Ice Path)</h1>
+        <p>Após a vitória contra o Mask of Ice no trem, saia da Liga Pokémon e fale com o <strong>Looker</strong>. Converse com todos os líderes de ginásio e retorne ao Looker para coletar suas recompensas.</p>
+
+        <h2>📻 A Busca Pelo Dr. Hinoki & Antenas</h2>
+        <ol>
+          <li>1. <strong>Delegacia de Goldenrod:</strong> Fale com o <strong>Detetive House</strong>. O Dr. Hinoki será mencionado como a chave para descobrir o próximo alvo do Mask of Ice.</li>
+          <li>2. <strong>Ruins of Alpha:</strong> Vá até a dungeon 📍 <button class="coord-click" onclick="copyCoord('3025, 30392, 6')">3025, 30392, 6 📋</button>. O Dr. Hinoki não estará lá, mas seu Pokégear sintonizará com uma antena que guiará você por uma triangulação de frequências.</li>
+        </ol>
+
+        <h3>📡 Rota de Triangulação:</h3>
+        <ul>
+          <li>• <strong>Antena 1 (Ruins of Alpha):</strong> Morse <button class="coord-click" onclick="copyCoord('2834, 30811, 6')">2834, 30811, 6 📋</button> ➔ Direciona para <strong>Ilex Forest</strong>.</li>
+          <li>• <strong>Antena 2 (Ilex Forest):</strong> Morse <button class="coord-click" onclick="copyCoord('3019, 30142, 6')">3019, 30142, 6 📋</button> ➔ Direciona para <strong>Burned Tower</strong>.</li>
+          <li>• <strong>Antena 3 (Burned Tower):</strong> Você deve dar use nessa antena e sintonizar as <strong>3 frequências</strong> para coletar as 3 partes da mensagem:
+            <ul>
+              <li>• 📍 <button class="coord-click" onclick="copyCoord('3415, 29974, 4')">3415, 29974, 4 📋</button> <em>(Rocket Hideout)</em></li>
+              <li>• 📍 <button class="coord-click" onclick="copyCoord('2281, 30785, 2')">2281, 30785, 2 📋</button> <em>(Cianwood)</em></li>
+              <li>• 📍 <button class="coord-click" onclick="copyCoord('3125, 31264, 4')">3125, 31264, 4 📋</button> <em>(Alto Mare)</em></li>
+            </ul>
+          </li>
+        </ul>
+
+        <div class="alert alert-info">📜 <strong>Mensagem Decodificada:</strong> Ao reunir as pistas das 3 etapas, a frase completa revelará: <em>"I was kidnapped at Ice Path by Masked people. They kidnapped me to know about Ho-Oh."</em></div>
+
+        <h2>🧊 Dungeon: Esconderijo Estranho (Ice Path)</h2>
+        <p>Siga para o Ice Path em 📍 <button class="coord-click" onclick="copyCoord('3327, 30193, 10')">3327, 30193, 10 📋</button> para acessar a dungeon.</p>
+        <ul>
+          <li>• ⏱️ <strong>Tempo Total da Dungeon:</strong> 1 hora e 15 minutos.</li>
+          <li>• 🚨 <strong>Invasão:</strong> Ao entrar, as câmeras de segurança acionarão o alarme. Elimine todos os inimigos do local. Existem algumas turrets, que para desativa-las você precisará clicar nos geradores de cada sala. Aconselho dar uma olhada bem rápida nesse vídeo, pulando partes (ja é o suficiente): <a href="https://www.youtube.com/watch?v=7G8P22otrbk&t=1956s" target="_blank">https://www.youtube.com/watch?v=7G8P22otrbk&t=1956s</a></li>
+          <li>• 🚨 <strong>Time:</strong> Leve Tank, Speedster e Cura</li>
+          <li>• 💻 <strong>Hack do Computador:</strong> Na sala à direita, acesse o computador e resolva o minigame de senha (similar ao hack da NW). Uma <em>cinematic</em> de Carl e Sham liberando 4 Pokémons Experimentais será exibida.</li>
+        </ul>
+
+        <div class="alert alert-info">💾 <strong>Checkpoint:</strong> A partir deste momento, o temporizador principal é encerrado. Você ganha um Checkpoint e pode entrar/sair do local para trocar sua equipe livremente.</div>
+
+        <h2>🧪 Batalha Contra os Pokémons Experimentais</h2>
+        <p>Cada um dos 4 Pokémons Experimentais deve ser derrotado em uma batalha individual no modo <strong>Pokéview</strong>:</p>
+        <ul>
+          <li>• ⏱️ <strong>Tempo Limite por Luta:</strong> 7 minutos.</li>
+        </ul>
+        <p>• <strong>Metagross:</strong> Usei Raticate TM</p>
+        <p>• <strong>Mamoswine:</strong> Usei Feraligatr TM</p>
+        <p>• <strong>Scizor:</strong> Usei Houndoom TM</p>
+        <p>• <strong>Tyranitar:</strong> Usei Infernape TM</p>
+
+        <h2>🔧 Desativando os Lasers do Subsolo:</h2>
+        <ol>
+          <li>1. Após derrotar os 4 experimentais, vá para a sala ao norte (pelo caminho da direita).</li>
+          <li>2. O subsolo estará escondido sob algumas caixas.</li>
+          <li>3. Derrote os NPCs do subsolo e ative a <strong>alavanca ao sul</strong> da sala para desativar os lasers do andar superior.</li>
+          <li>4. Volte ao andar de cima, acesse a sala norte/direita e hackeie o computador novamente para liberar o caminho das escadas.</li>
+        </ol>
+
+        <h2>⚔️ Boss Fight Simultânea: Karen & Will (Possuídos)</h2>
+        <p>Ao descer as escadas, você enfrentará <strong>Karen e Will</strong> ao mesmo tempo no modo <strong>Pokéview</strong>.</p>
+        <div class="alert alert-info">💡 <strong>Dica:</strong> O uso de <strong>MooMoo Milk</strong> está liberado. Fique atento, pois todos os Pokémons deles possuem mecânicas exclusivas!</div>
+
+        <h3>🖤 Time da Karen:</h3>
+        <ul>
+          <li>• Shiny Vileplume</li>
+          <li>• Shiny Umbreon</li>
+          <li>• Mega Gengar</li>
+          <li>• Honchkrow</li>
+        </ul>
+
+        <h3>🔮 Time do Will:</h3>
+        <ul>
+          <li>• Shiny Xatu</li>
+          <li>• Shiny Jynx</li>
+          <li>• Shiny Exeggutor</li>
+          <li>• Mega Slowbro</li>
+        </ul>
+
+        <h3>🎒 Time que levei para Karen/Will:</h3>
+        <ul>
+          <li>• Mega Voir TM</li>
+          <li>• Elite Farfetch TM</li>
+          <li>• Raticate TM</li>
+          <li>• Houndoom TM</li>
+          <li>• Rhyperior TM</li>
+          <li>• Infernape TM</li>
+        </ul>
+
+        <h2>💣 Destruição do Esconderijo & Finalização</h2>
+        <ol>
+          <li>1. <strong>O Resgate:</strong> Após serem derrotados, Karen e Will voltarão ao normal e o <strong>Dr. Hinoki</strong> será libertado.</li>
+          <li>2. <strong>Plantando as Bombas:</strong> Você receberá um pacote de bombas. Espalhe-as interagindo com os <strong>círculos vermelhos marcados no chão</strong> por todo o esconderijo <em>(não é necessário derrotar os Strange Masked Grunts restantes)</em>.</li>
+          <li>3. <strong>Fuga:</strong> Saia da dungeon, fale com a <strong>Karen</strong>, com o <strong>Will</strong> e por fim com o <strong>Dr. Hinoki</strong>.</li>
+          <li>4. <strong>Conclusão:</strong> Você será teleportado automaticamente para o laboratório nas <em>Ruins of Alpha</em>, finalizando esta etapa!</li>
+        </ol>
+      </div>
+    </div>
+
+    <!-- PARTE 9 -->
+    <div id="p9" class="tab-content">
+      <div class="card">
+        <h1>🗿 PARTE 9 — Enigma dos Pilares, Mask of Ice e Marshadow</h1>
+        <p>Após resgatar o <strong>Dr. Hinoki</strong>, converse com ele no laboratório nas <em>Ruins of Alpha</em>. Ele mencionará o <strong>Mt. Silver</strong>. Antes de avançar, dirija-se à delegacia de Goldenrod para atualizar o <strong>Detetive House</strong>.</p>
+
+        <div class="alert alert-info">👤 <strong>Apoio no Mt. Silver: Morty e Eusine</strong> também estarão na delegacia. Eles informarão que estarão de prontidão no Mt. Silver para ajudá-lo caso necessário.</div>
+
+        <h2>🗿 O Enigma dos Pilares no Mt. Silver</h2>
+        <p>Dentro do Mt. Silver, existem 6 pilares elementais espalhados. É <strong>obrigatório</strong> interagir com eles na ordem exata listada abaixo:</p>
+        <ol>
+          <li>1. <strong>Pilar Elétrico</strong> <em>(Respawn de Ampharos)</em> ➔ 📍 <button class="coord-click" onclick="copyCoord('2153, 37045, 5')">2153, 37045, 5 📋</button></li>
+          <li>2. <strong>Pilar de Fogo</strong> <em>(Respawn de Rapidash)</em> ➔ 📍 <button class="coord-click" onclick="copyCoord('1868, 37167, 5')">1868, 37167, 5 📋</button></li>
+          <li>3. <strong>Pilar de Água</strong> <em>(Respawn de Kingdra)</em> ➔ 📍 <button class="coord-click" onclick="copyCoord('1819, 36375, 6')">1819, 36375, 6 📋</button></li>
+          <li>4. <strong>Pilar de Planta</strong> <em>(Respawn de Bellossom)</em> ➔ 📍 <button class="coord-click" onclick="copyCoord('2182, 36977, 4')">2182, 36977, 4 📋</button></li>
+          <li>5. <strong>Pilar de Terra</strong> <em>(Respawn de Donphan)</em> ➔ 📍 <button class="coord-click" onclick="copyCoord('2032, 36411, 6')">2032, 36411, 6 📋</button></li>
+          <li>6. <strong>Pilar de Gelo</strong> <em>(Respawn de Delibird)</em> ➔ 📍 <button class="coord-click" onclick="copyCoord('1966, 36899, 2')">1966, 36899, 2 📋</button></li>
+        </ol>
+
+        <div class="alert alert-warning">💥 <strong>Desbloqueio:</strong> Ao ativar o último pilar, uma animação mostrará uma parede desabando e liberando uma nova passagem.</div>
+
+        <h2>❄️ Duelo Contra o Mask of Ice</h2>
+        <p>Siga até o respawn de Granbull em 📍 <button class="coord-click" onclick="copyCoord('2196, 36795, 5')">2196, 36795, 5 📋</button> para encontrar a nova área. O <strong>Mask of Ice</strong> estará diante de um cristal místico. Após o diálogo, ele criará uma arena de gelo ao seu redor para desafiá-lo.</p>
+        <ul>
+          <li>• <strong>Modo de Batalha:</strong> Pokéview.</li>
+          <li>• <strong>Itens:</strong> Uso de <strong>MooMoo Milk</strong> liberado durante o combate.</li>
+        </ul>
+
+        <h3>⚔️ Time do Mask of Ice:</h3>
+        <ul>
+          <li>• Shiny Delibird</li>
+          <li>• Shiny Ariados</li>
+          <li>• Shiny Houndoom</li>
+          <li>• Shiny Mega Gengar</li>
+        </ul>
+
+        <h3>⚔️ Time que usei:</h3>
+        <ul>
+          <li>• Mega Houndoom TM</li>
+          <li>• Mega Voir TM</li>
+          <li>• Feraligatr TM</li>
+          <li>• Raticate TM</li>
+          <li>• Empoleon TM</li>
+          <li>• Honchrow TM</li>
+        </ul>
+
+        <h2>🔮 A Invocação de Marshadow & Waves de Corrompidos</h2>
+        <p>Ao ser derrotado, o Mask of Ice corromperá os artefatos roubados e os usará no cristal, invocando o mítico <strong>Marshadow</strong> e corrompendo diversos Pokémons do Mt. Silver.</p>
+
+        <div class="alert alert-danger">
+          ⚠️ <strong>Invasão em Waves:</strong><br>
+          Nesta etapa final, você enfrentará <strong>diversas ondas (waves) de Pokémons corrompidos</strong> (mecânica similar à da <em>Mewtwo Quest</em>).<br>
+          <strong>Dica:</strong> Leve Pokémons do tipo <strong>Speedster</strong> para conseguir limpar os alvos rapidamente e aguentar a pressão das waves.
+        </div>
+
+        <p style="margin-top: 10px;">Após a invocação, a batalha final contra o mítico <strong>Marshadow</strong> se inicia nas profundezas do Mt. Silver.</p>
+
+        <h2>⚔️ Estágio 1: Waves & Enfrentamento Direto</h2>
+        <ol>
+          <li>1. <strong>Waves de Corrompidos:</strong> Inicialmente, você precisará sobreviver e derrotar diversas ondas de Pokémons corrompidos do Mt. Silver.</li>
+          <li>2. <strong>Confronto com Marshadow:</strong> Após limpar as waves, o combate direto contra o <strong>Marshadow</strong> será liberado.</li>
+        </ol>
+
+        <div class="alert alert-danger">
+          ⚠️ <strong>Mecânica Crucial (40% de Vida):</strong><br>
+          Quando a vida do Marshadow chegar a aproximadamente <strong>40%, RETIRE O SEU POKÉMON DA ARENA IMMEDIATAMENTE!</strong><br>
+          Ele lançará um golpe fatal em você. Ao tomar o golpe, um raio de sol o protegerá e o teleportará para a etapa do <strong>Arco-Íris</strong>.
+        </div>
+
+        <h2>🌈 Estágio 2: O Caminho do Arco-Íris</h2>
+        <p>Você será levado para um percurso especial sobre o arco-íris e deverá percorrer o caminho até o final.</p>
+        <ul>
+          <li>• ⏱️ <strong>Tempo Limite:</strong> 10:00 minutos para concluir o percurso.</li>
+          <li>• ☁️ <strong>Atenção às Nuvens (Obstáculos):</strong>
+            <ul>
+              <li>• <strong>Nuvem de Dano:</strong> Causa dano direto ao seu personagem.</li>
+              <li>• <strong>Nuvem de Vento:</strong> Solta uma cortina de vento que empurra o jogador de volta para o <strong>início do caminho</strong>.</li>
+            </ul>
+          </li>
+        </ul>
+        <div class="alert alert-info">💡 <strong>Dica:</strong> Avance com cuidado desviando das nuvens de vento para não perder tempo voltando ao início!</div>
+      </div>
+    </div>
+
+    <!-- PARTE 10 -->
+    <div id="p10" class="tab-content">
+      <div class="card">
+        <h1>🌲 PARTE 10 — O Confronto Final & Livros Ancestrais</h1>
+        <p>Ao chegar ao final do caminho do arco-íris, você acordará próximo ao <strong>Marshadow</strong>. Repentinamente, o lendário <strong>Ho-Oh</strong> surgirá para salvá-lo.</p>
+
+        <ol>
+          <li>1. <strong>Purificação:</strong> Marshadow entregará a <strong>Rainbow Wing</strong> a você, restaurando sua luz original. Use a pena para purificar a área corrompida pelo Mask of Ice.</li>
+          <li>2. <strong>A Posse do Ho-Oh:</strong> O Mask of Ice reaparecerá afirmando que nada o deterá. Ele invocará novamente o Ho-Oh e usará o poder das trevas para <strong>possuí-lo</strong>.</li>
+          <li>3. <strong>Novos Planos:</strong> Eusine e <strong>Morty</strong> aparecerão na arena. Reporte o ocorrido a eles: o Mask of Ice agora busca capturar o <strong>Celebi</strong> em <strong>Ilex Forest</strong> para dominar o tempo.</li>
+        </ol>
+
+        <h2>🌲 O Confronto em Ilex Forest</h2>
+        <p>Siga para Ilex Forest em 📍 <button class="coord-click" onclick="copyCoord('2850, 30802, 6')">2850, 30802, 6 📋</button>. O Mask of Ice pousará montado no Ho-Oh possuído para tentar dominar o Celebi. Após o diálogo, o duelo no modo <strong>Pokéview</strong> será iniciado.</p>
+
+        <div class="alert alert-warning">
+          <strong>⚠️ Mecânicas Únicas da Batalha Contra o Ho-Oh Corrompido:</strong><br>
+          1. <strong>Chamas Elementais (a cada 30s):</strong> Uma chama de cor específica surgirá no seu Pokémon. Você <strong>DEVE</strong> pisar na chama da <strong>mesma cor</strong> no chão. Isso evita o dano e concede um pequeno bônus ao seu personagem.<br>
+          2. <strong>Fogo Sagrado (Hit Kill aos 80%, 60%, 40% e 20%):</strong> O Ho-Oh usará o <em>Fogo Sagrado</em>, eliminando seu Pokémon <strong>instantaneamente</strong>. Esteja preparado para trocar de Pokémon imediatamente.<br>
+          3. <strong>Recuperar / DPS Check (aos 75%, 50% e 25%):</strong> O Ho-Oh mudará de cor e começará a conjurar a habilidade <em>Recuperar</em>. Cause o <strong>máximo de dano possível</strong> para quebrar a fase antes de 10 segundos, caso contrário ele restaurará 10% de vida.<br>
+          4. <strong>Libertação (aos 15%):</strong> Ao reduzir a vida do Ho-Oh para 15%, ele se libertará do controle das trevas e fugirá.
+        </div>
+
+        <h2>🕵️ O Desfecho & A Revelação</h2>
+        <p>Após a derrota do Ho-Oh, a verdadeira identidade do Mask of Ice é finalmente revelada: trata-se de <strong>Pryce</strong>, o líder do ginásio de Mahogany! Ele revelará seu passado sombrio e os motivos do seu plano de vingança contra o Celebi.</p>
+
+        <ol>
+          <li>1. <strong>Diálogo Final:</strong> Converse com <strong>Morty</strong> e <strong>Eusine</strong>, que chegarão ao local logo em seguida.</li>
+          <li>2. <strong>Delegacia de Goldenrod:</strong> Vá até o <strong>Detetive House</strong> para entregar o relatório final das investigações e declarar a vitória definitiva contra Pryce.</li>
+          <li>3. <strong>O Herói do Arco-Íris:</strong> O detetive agradecerá por todos os seus esforços e mencionará os rumores de que você é oficialmente o lendário <strong>Herói do Arco-Íris</strong>!</li>
+        </ol>
+
+        <p style="margin-top: 15px;">Para dar início ao ritual final na <strong>Bell Tower</strong>, vá até o topo e fale com o <strong>Ancião Kame</strong>. Ele informará que precisa de registros da história ancestral de Johto que se perderam ao longo dos anos. Sua missão será recuperar <strong>2 Livros Ancestrais</strong>.</p>
+
+        <h2>📖 1º Livro Ancestral (Burned Tower)</h2>
+        <p>Siga para a Burned Tower. No local onde ficava o Morty, haverá uma estátua do Ho-Oh quebrada em 📍 <button class="coord-click" onclick="copyCoord('3024, 30130, 6')">3024, 30130, 6 📋</button>.</p>
+
+        <ol>
+          <li>1. <strong>Primeiro Pedaço:</strong> Suba a torre até 📍 <button class="coord-click" onclick="copyCoord('3018, 30137, 2')">3018, 30137, 2 📋</button> e abra o baú para pegar a primeira parte. Retorne à estátua e repare-a.</li>
+          <li>2. <strong>Segundo Pedaço:</strong> Encontre a segunda parte no chão em 📍 <button class="coord-click" onclick="copyCoord('3019, 30133, 5')">3019, 30133, 5 📋</button>.</li>
+          <li>3. <strong>Terceiro Pedaço:</strong> Vá até 📍 <button class="coord-click" onclick="copyCoord('3017, 30140, 3')">3017, 30140, 3 📋</button> e use a habilidade <strong>Light</strong> para revelar a última parte no local.</li>
+          <li>4. <strong>Desbloqueio:</strong> Volte à estátua, faça o conserto final e interaja com ela. Uma passagem para a caverna ao lado esquerdo será liberada.</li>
+          <li>5. <strong>Recompensa:</strong> Dentro da caverna, abra o baú para obter o <strong>1º Livro Ancestral</strong> e uma <strong>Rainbow Orb</strong>.</li>
+        </ol>
+
+        <h2>📖 2º Livro Ancestral (Bell Tower)</h2>
+        <p>Siga para a Bell Tower para resolver o enigma das tochas e lâmpadas.</p>
+
+        <ol>
+          <li>1. <strong>Ativação:</strong> Interaja primeiro com a estátua em 📍 <button class="coord-click" onclick="copyCoord('962, 28400, 11')">962, 28400, 11 📋</button>.</li>
+          <li>2. <strong>Ordem das Lâmpadas:</strong> Interaja com as lâmpadas em formato de Ho-Oh na sequência exata abaixo:
+            <ul>
+              <li>• 1ª ➔ 📍 <button class="coord-click" onclick="copyCoord('950, 28405, 6')">950, 28405, 6 📋</button></li>
+              <li>• 2ª ➔ 📍 <button class="coord-click" onclick="copyCoord('966, 28401, 5')">966, 28401, 5 📋</button></li>
+              <li>• 3ª ➔ 📍 <button class="coord-click" onclick="copyCoord('953, 28399, 9')">953, 28399, 9 📋</button></li>
+              <li>• 4ª ➔ 📍 <button class="coord-click" onclick="copyCoord('949, 28419, 10')">949, 28419, 10 📋</button></li>
+              <li>• 5ª ➔ 📍 <button class="coord-click" onclick="copyCoord('966, 28399, 8')">966, 28399, 8 📋</button></li>
+              <li>• 6ª ➔ 📍 <button class="coord-click" onclick="copyCoord('967, 28402, 4')">967, 28402, 4 📋</button></li>
+              <li>• 7ª ➔ 📍 <button class="coord-click" onclick="copyCoord('949, 28414, 7')">949, 28414, 7 📋</button></li>
+            </ul>
+          </li>
+          <li>3. <strong>Portal:</strong> Ao acionar a 7ª lâmpada, um portal surgirá ao seu lado. Entre nele e abra o baú para coletar o <strong>2º Livro Ancestral</strong>.</li>
+        </ol>
+
+        <h2>🔮 Requisito das Essências (Rainbow Orbs)</h2>
+        <p>Retorne ao <strong>Ancião Kame</strong> no topo da Bell Tower e entregue os dois livros.</p>
+        <p>Para prosseguir com o ritual de invocação, ele exigirá que você possua as essências do Ho-Oh espalhadas por toda a região de Johto.</p>
+
+        <div class="alert alert-warning">⚠️ <strong>Requisito Obrigatório:</strong> Certifique-se de ter coletado <strong>todas as 251 Rainbow Orbs</strong> espalhadas pelo mapa antes de tentar prosseguir!</div>
+      </div>
+    </div>
+
+  </div>
+
+  <div id="toast" class="toast">Coordenada copiada!</div>
+
+  <script>
+    function openTab(tabId) {
+      document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+      
+      document.getElementById(tabId).classList.add('active');
+      event.currentTarget.classList.add('active');
+    }
+
+    function copyCoord(text) {
+      navigator.clipboard.writeText(text);
+      const toast = document.getElementById('toast');
+      toast.innerText = `Copiado: ${text}`;
+      toast.style.display = 'block';
+      setTimeout(() => { toast.style.display = 'none'; }, 2000);
+    }
+  </script>
+</body>
+</html>
